@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join, posix } from "node:path";
 import { marked } from "marked";
 import { ACCIONES, AREAS, MODOS, REPO } from "./catalogo.ts";
@@ -126,7 +126,7 @@ function portada(casos: Caso[], version: string) {
     [],
     `<header class="portada">
   <h1>Conocimiento de Travis</h1>
-  <p class="entradilla">${casos.length} casos que sigue el agente de atención al cliente, en ${AREAS.length} áreas, y las ${ACCIONES.length} acciones que puede usar.</p>
+  <p class="entradilla">${casos.length} casos que sigue el agente de atención al cliente, en ${AREAS.length} áreas, y las ${ACCIONES.length} acciones que puede usar. <a href="{{raiz}}admin/index.html">Abrir el panel de edición</a></p>
   <input id="buscador" type="search" placeholder="Busca un caso: «check-in», «añadir un niño», «factura»…" autocomplete="off" data-indice="{{raiz}}buscar.json" data-raiz="{{raiz}}">
 </header>
 <ul id="resultados" class="lista" hidden></ul>
@@ -222,7 +222,7 @@ function enlacesRotos(): string[] {
     for (const [, destino] of html.matchAll(/(?:href|src|data-indice)="([^"#]+)"/g)) {
       if (/^https?:/.test(destino)) continue;
       const resuelto = posix.normalize(posix.join(posix.dirname(ruta), destino));
-      if (!paginas.has(resuelto) && !["estilos.css", "web.js", "buscar.json"].includes(resuelto)) {
+      if (!paginas.has(resuelto) && !["estilos.css", "web.js", "buscar.json", "admin/index.html"].includes(resuelto)) {
         rotos.push(`${ruta} → ${destino}`);
       }
     }
@@ -290,6 +290,22 @@ const SCRIPT = `(() => {
 })();
 `;
 
+// Public PoC only: with DECAP_TOKEN (a fine-grained token limited to this repo) the published
+// panel skips the OAuth login, because GitHub Pages cannot run the token exchange.
+async function copiarPanel() {
+  const destino = join(SALIDA, "admin");
+  await mkdir(destino, { recursive: true });
+  await copyFile(join(RAIZ, "admin", "config.yml"), join(destino, "config.yml"));
+  let html = await readFile(join(RAIZ, "admin", "index.html"), "utf8");
+  const token = process.env.DECAP_TOKEN;
+  if (token) {
+    const sesion = JSON.stringify({ token, backendName: "github" });
+    html = html.replace("<body>", `<body>\n    <script>localStorage.setItem("decap-cms-user", ${JSON.stringify(sesion)});</script>`);
+  }
+  await writeFile(join(destino, "index.html"), html);
+  return Boolean(token);
+}
+
 async function main() {
   const casos = await leerCasos();
   const version = versionPublicada();
@@ -329,7 +345,8 @@ async function main() {
   await writeFile(join(SALIDA, "web.js"), SCRIPT);
   await writeFile(join(SALIDA, "buscar.json"), JSON.stringify(indice));
   await writeFile(join(SALIDA, ".nojekyll"), "");
-  console.log(`${paginas.size} páginas en _site/ (${casos.length} casos, ${ACCIONES.length} acciones)`);
+  const conToken = await copiarPanel();
+  console.log(`${paginas.size} páginas en _site/ (${casos.length} casos, ${ACCIONES.length} acciones), panel ${conToken ? "con token" : "con login"}`);
 }
 
 await main();

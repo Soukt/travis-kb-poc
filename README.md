@@ -1,0 +1,52 @@
+# travis-kb-poc
+
+**Prueba de concepto desechable. Todo el contenido es simulado.** Los casos los ha escrito una IA para probar la herramienta: no describen procedimientos reales de ninguna empresa y no deben usarse como tales.
+
+Sirve para comprobar si [Decap CMS](https://decapcms.org) vale como forma de editar el conocimiento de un agente de atención al cliente guardado en un repo de GitHub:
+
+- ¿Carga y busca bien con 900 casos?
+- ¿Funciona una carpeta por caso con su `SKILL.md` y una colección por área?
+- ¿Guardar un borrador crea una rama y una pull request, y qué hace «publicar» con `master` protegido?
+- ¿La validación automática salta en cada pull request?
+
+## Estructura
+
+```
+casos/<área>/<caso>/SKILL.md   un caso de uso por carpeta, en formato Agent Skills
+acciones/<acción>.md           catálogo de acciones ficticias que los casos pueden usar
+admin/                         panel de Decap (config.yml lo genera scripts/render.ts)
+scripts/                       generación, validación y servidor local de login
+```
+
+Cada `SKILL.md` sigue el [estándar de skills](https://agentskills.io/specification): `name` (igual que su carpeta) y `description` arriba, y el resto de datos en `metadata`.
+
+```markdown
+---
+name: aloj-hora-de-entrada-al-hotel
+description: El cliente pregunta a qué hora puede entrar al hotel o dejar la habitación.
+metadata:
+  area: alojamiento
+  modo: autonomo        # autonomo | copiloto | persona
+  acciones:
+    - verificar-identidad
+    - consultar-horarios-hotel
+  simulado: "true"
+---
+
+## Cuándo aplica
+## Qué hace el agente
+## Qué no hace
+## Cuándo pasa a una persona
+## Cómo lo puede pedir el cliente
+```
+
+## Uso
+
+```bash
+npm install
+cp .env.example .env     # rellenar con la OAuth App de GitHub
+npm run dev              # panel en http://localhost:8080/admin/
+npm run validar          # la misma validación que corre en cada pull request
+```
+
+La OAuth App se crea en GitHub > Settings > Developer settings > OAuth Apps, con *Homepage URL* `http://localhost:8080` y *Authorization callback URL* `http://localhost:8080/callback`.

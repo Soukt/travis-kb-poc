@@ -1,0 +1,15 @@
+{
+  "name": "travis-kb-poc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "tsx scripts/render.ts",
+    "validar": "tsx scripts/validar.ts",
+    "dev": "tsx scripts/servidor.ts"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.9",
+    "tsx": "4.23.15",
+    "yaml": "2.9.1"
+  }
+}

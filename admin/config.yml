@@ -1,0 +1,799 @@
+# Generado por scripts/render.ts. No editar a mano.
+backend:
+  name: github
+  repo: Soukt/travis-kb-poc
+  branch: master
+  base_url: http://localhost:8080
+  auth_endpoint: auth
+  auth_scope: public_repo
+  squash_merges: true
+publish_mode: editorial_workflow
+media_folder: media
+locale: es
+collections:
+  - name: acciones
+    label: Acciones (catálogo)
+    label_singular: Acción
+    folder: acciones
+    create: true
+    identifier_field: name
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+      - label: Descripción
+        name: description
+        widget: text
+      - label: Simulado
+        name: simulado
+        widget: hidden
+        default: "true"
+      - label: Notas
+        name: body
+        widget: markdown
+        required: false
+  - name: alojamiento
+    label: Alojamiento
+    label_singular: Caso
+    folder: casos/alojamiento
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por aloj- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^aloj(-[a-z0-9]+)+$
+          - Empieza por aloj- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: alojamiento
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: entradas-y-parques
+    label: Entradas y parques
+    label_singular: Caso
+    folder: casos/entradas-y-parques
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por ent- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^ent(-[a-z0-9]+)+$
+          - Empieza por ent- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: entradas-y-parques
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: ferris
+    label: Ferris
+    label_singular: Caso
+    folder: casos/ferris
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por ferri- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^ferri(-[a-z0-9]+)+$
+          - Empieza por ferri- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: ferris
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: vuelo-y-hotel
+    label: Vuelo y hotel
+    label_singular: Caso
+    folder: casos/vuelo-y-hotel
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por vh- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^vh(-[a-z0-9]+)+$
+          - Empieza por vh- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: vuelo-y-hotel
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: cambios-y-cancelaciones
+    label: Cambios y cancelaciones
+    label_singular: Caso
+    folder: casos/cambios-y-cancelaciones
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por camb- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^camb(-[a-z0-9]+)+$
+          - Empieza por camb- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: cambios-y-cancelaciones
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: pagos-y-facturas
+    label: Pagos y facturas
+    label_singular: Caso
+    folder: casos/pagos-y-facturas
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por pago- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^pago(-[a-z0-9]+)+$
+          - Empieza por pago- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: pagos-y-facturas
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: viajeros-y-datos
+    label: Viajeros y datos
+    label_singular: Caso
+    folder: casos/viajeros-y-datos
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por viaj- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^viaj(-[a-z0-9]+)+$
+          - Empieza por viaj- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: viajeros-y-datos
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: documentacion-y-bonos
+    label: Documentación y bonos
+    label_singular: Caso
+    folder: casos/documentacion-y-bonos
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por doc- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^doc(-[a-z0-9]+)+$
+          - Empieza por doc- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: documentacion-y-bonos
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+
+  - name: otras
+    label: Otras consultas
+    label_singular: Caso
+    folder: casos/otras
+    path: "{{slug}}/SKILL"
+    create: true
+    identifier_field: name
+    summary: "{{name}} · {{metadata.modo}}"
+    sortable_fields:
+      - name
+    view_filters:
+      - label: Responde solo
+        field: metadata.modo
+        pattern: autonomo
+      - label: "Copiloto: lo revisa booking antes de enviarlo"
+        field: metadata.modo
+        pattern: copiloto
+      - label: Lo pasa a booking
+        field: metadata.modo
+        pattern: persona
+    fields:
+      - label: Nombre
+        name: name
+        widget: string
+        hint: Identificador del caso. Empieza por otra- y usa solo minúsculas, números y guiones.
+        pattern:
+          - ^otra(-[a-z0-9]+)+$
+          - Empieza por otra- y usa solo minúsculas, números y guiones
+      - label: Descripción
+        name: description
+        widget: text
+        hint: Una frase que empiece por «El cliente…» y diga cuándo aplica. El agente decide con esto si usa el caso.
+      - label: Datos del caso
+        name: metadata
+        widget: object
+        collapsed: false
+        fields:
+          - label: Área
+            name: area
+            widget: hidden
+            default: otras
+          - label: Modo
+            name: modo
+            widget: select
+            options:
+              - label: Responde solo
+                value: autonomo
+              - label: "Copiloto: lo revisa booking antes de enviarlo"
+                value: copiloto
+              - label: Lo pasa a booking
+                value: persona
+          - label: Acciones que usa
+            name: acciones
+            widget: relation
+            collection: acciones
+            search_fields:
+              - name
+              - description
+            value_field: name
+            display_fields:
+              - name
+            multiple: true
+            required: false
+          - label: Simulado
+            name: simulado
+            widget: hidden
+            default: "true"
+      - label: Instrucciones
+        name: body
+        widget: markdown
+        default: |+
+          ## Cuándo aplica
+
+
+          ## Qué hace el agente
+
+
+          ## Qué no hace
+
+
+          ## Cuándo pasa a una persona
+
+
+          ## Cómo lo puede pedir el cliente
+

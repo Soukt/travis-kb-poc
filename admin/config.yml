@@ -39,7 +39,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -124,7 +124,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -209,7 +209,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -294,7 +294,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -379,7 +379,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -464,7 +464,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -549,7 +549,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -634,7 +634,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:
@@ -719,7 +719,7 @@ collections:
     path: "{{slug}}/SKILL"
     create: true
     identifier_field: name
-    summary: "{{name}} · {{metadata.modo}}"
+    summary: "{{description}}"
     sortable_fields:
       - name
     view_filters:

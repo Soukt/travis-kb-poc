@@ -67,16 +67,21 @@ function cuerpo(caso: CasoGenerado): string {
   return SECCIONES.map((seccion, indice) => `## ${seccion}\n\n${contenido[indice]}\n`).join("\n");
 }
 
+// Same layout Decap writes on save (YAML folded at 80, no blank line after the header),
+// so its pull requests only show real changes.
+function conCabecera(cabecera: object, contenido: string): string {
+  return `---\n${stringify(cabecera)}---\n${contenido}`;
+}
+
 function skill(caso: CasoGenerado, area: (typeof AREAS)[number]): string {
-  const cabecera = stringify(
+  return conCabecera(
     {
       name: caso.name,
       description: caso.description.trim(),
       metadata: { area: area.slug, modo: caso.modo, acciones: caso.acciones, simulado: "true" },
     },
-    { lineWidth: 0 },
+    cuerpo(caso),
   );
-  return `---\n${cabecera}---\n\n${cuerpo(caso)}`;
 }
 
 function configDecap(): string {
@@ -89,7 +94,7 @@ function configDecap(): string {
     path: "{{slug}}/SKILL",
     create: true,
     identifier_field: "name",
-    summary: "{{name}} · {{metadata.modo}}",
+    summary: "{{description}}",
     sortable_fields: ["name"],
     view_filters: MODOS.map((modo) => ({ label: modo.label, field: "metadata.modo", pattern: modo.value })),
     fields: [
@@ -205,9 +210,9 @@ async function main() {
   await mkdir(join(RAIZ, "admin"), { recursive: true });
 
   for (const accion of ACCIONES) {
-    const cabecera = stringify({ name: accion.name, description: accion.description, simulado: "true" }, { lineWidth: 0 });
     const notas = "Acción ficticia para la prueba. La implementa tecnología; aquí solo se describe qué devuelve.\n";
-    await writeFile(join(RAIZ, "acciones", `${accion.name}.md`), `---\n${cabecera}---\n\n${notas}`);
+    const cabecera = { name: accion.name, description: accion.description, simulado: "true" };
+    await writeFile(join(RAIZ, "acciones", `${accion.name}.md`), conCabecera(cabecera, notas));
   }
 
   let total = 0;

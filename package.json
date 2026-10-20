@@ -5,10 +5,12 @@
   "scripts": {
     "render": "tsx scripts/render.ts",
     "validar": "tsx scripts/validar.ts",
-    "dev": "tsx scripts/servidor.ts"
+    "dev": "tsx scripts/servidor.ts",
+    "web": "tsx scripts/web.ts"
   },
   "devDependencies": {
     "@types/node": "25.9.9",
+    "marked": "18.0.14",
     "tsx": "4.23.15",
     "yaml": "2.9.1"
   }

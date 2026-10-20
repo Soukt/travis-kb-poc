@@ -40,6 +40,10 @@ metadata:
 ## Cómo lo puede pedir el cliente
 ```
 
+## Web de consulta
+
+Cada vez que algo entra en `master` se publica una web de solo lectura en **https://soukt.github.io/travis-kb-poc/**, con portada por áreas, buscador, una página por caso y el catálogo de acciones con los casos que usa cada una. Pie de página con el commit publicado. Se genera con `npm run web` en `_site/`.
+
 ## Uso
 
 ```bash

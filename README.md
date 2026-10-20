@@ -44,6 +44,8 @@ metadata:
 
 Cada vez que algo entra en `master` se publica una web de solo lectura en **https://soukt.github.io/travis-kb-poc/**, con portada por áreas, buscador, una página por caso y el catálogo de acciones con los casos que usa cada una. Pie de página con el commit publicado. Se genera con `npm run web` en `_site/`.
 
+El panel de Decap también se publica en **https://soukt.github.io/travis-kb-poc/admin/**, sin login: el workflow inyecta el secreto `DECAP_TOKEN`, un token de grano fino limitado a este repo (escribir ficheros y abrir PRs). Cualquiera con la URL puede proponer cambios, pero `master` sigue protegido. Solo tiene sentido en esta prueba.
+
 ## Uso
 
 ```bash
